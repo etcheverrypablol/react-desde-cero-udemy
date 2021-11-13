@@ -6,10 +6,10 @@ const Events = () => {
   };
 
   return (
-    <div>
+    <>
       <h2>Events</h2>
       <button onClick={() => clickEvent()}>Click</button>
-    </div>
+    </>
   );
 };
 
