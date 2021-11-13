@@ -10,6 +10,7 @@ const Counter = () => {
     <div>
       <h2> Counter </h2>
       <h3> Our number increacing {counter}</h3>
+      <h4>{counter > 2 ? 'The counter is greater than 2' : 'The counter is less than 2'}</h4>
       <button onClick={() => handleCounter()}>Increace</button>
     </div>
   );
