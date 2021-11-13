@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Events = () => {
   const clickEvent = () => {
-    console.log('You give me a click');
+    setText('Modified text');
   };
+
+  const [text, setText] = useState('Text from state');
 
   return (
     <>
-      <h2>Events</h2>
+      <h2>{text}</h2>
       <button onClick={() => clickEvent()}>Click</button>
     </>
   );
