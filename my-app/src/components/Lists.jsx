@@ -8,12 +8,16 @@ const Lists = () => {
   ];
   const [list, setList] = useState(initialState);
 
+  const addElement = () => {
+    setList([...list, { id: 4, text: 'Task 4' }]);
+  };
   return (
     <div>
       <h2>Lists</h2>
       {list.map((elemnt, index) => (
         <h4 key={index}>{elemnt.text}</h4>
       ))}
+      <button onClick={() => addElement()}> Add </button>
     </div>
   );
 };
