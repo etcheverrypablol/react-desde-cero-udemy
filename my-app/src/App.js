@@ -1,5 +1,6 @@
 import Counter from './components/Counter';
 import Events from './components/Events';
+import Lists from './components/Lists';
 import Paragraph from './components/Paragraph';
 import Variables from './components/Variables';
 
@@ -7,10 +8,11 @@ function App() {
   return (
     <div>
       <h1>Hello world!</h1>
-      <Paragraph />
+      {/* <Paragraph />
       <Variables />
       <Events />
-      <Counter />
+      <Counter /> */}
+      <Lists />
     </div>
   );
 }
