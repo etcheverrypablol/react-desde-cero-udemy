@@ -6,16 +6,19 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [id, setId] = useState('');
+  const [error, setError] = useState(null);
 
   const addTask = (e) => {
     e.preventDefault();
     if (!task.trim()) {
       console.log('Empty element');
+      setError('Type someting please');
       return;
     }
     console.log(task);
     setTasks([...tasks, { id: nanoid(10), task: task }]);
     setTask('');
+    setError(null);
   };
 
   const deleteTask = (id) => {
@@ -36,6 +39,7 @@ function App() {
     e.preventDefault();
     if (!task.trim()) {
       console.log('Empty element');
+      setError('Type someting please');
       return;
     }
     console.log(task);
@@ -47,6 +51,7 @@ function App() {
     setEditMode(false);
     setTask('');
     setId('');
+    setError(null);
   };
 
   return (
@@ -57,36 +62,41 @@ function App() {
         <div className='col-8'>
           <h4 className='text-center'> Tasks list</h4>
           <ul className='list-group'>
-            {tasks.map((task) => {
-              return (
-                <li key={task.id} className='list-group-item'>
-                  <div className='row'>
-                    <div className='col-8'>
-                      <span className='lead'>{task.task}</span>
+            {tasks.length === 0 ? (
+              <li className='list-group-item'>There aren't tasks</li>
+            ) : (
+              tasks.map((task) => {
+                return (
+                  <li key={task.id} className='list-group-item'>
+                    <div className='row'>
+                      <div className='col-8'>
+                        <span className='lead'>{task.task}</span>
+                      </div>
+                      <div className='col-4'>
+                        <button
+                          className='btn btn-warning btn-sm float-right'
+                          onClick={() => editForm(task)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className='btn btn-danger btn-sm float-right mx-2'
+                          onClick={() => deleteTask(task.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
-                    <div className='col-4'>
-                      <button
-                        className='btn btn-warning btn-sm float-right'
-                        onClick={() => editForm(task)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className='btn btn-danger btn-sm float-right mx-2'
-                        onClick={() => deleteTask(task.id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
+                  </li>
+                );
+              })
+            )}
           </ul>
         </div>
         <div className='col-4'>
           <h4 className='text-center'>{editMode ? 'Edit mode' : 'Add task'}</h4>
           <form onSubmit={editMode ? editTask : addTask}>
+            {error ? <span className='text-danger'>{error}</span> : null}
             <input
               type='text'
               className='from-control mb-2 w-100'
