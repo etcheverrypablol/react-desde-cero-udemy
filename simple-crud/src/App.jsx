@@ -22,11 +22,21 @@ function App() {
         <div className='col-8'>
           <h4 className='text-center'> Tasks list</h4>
           <ul className='list-group'>
-            <li className='list-group-item'>
-              <span className='lead'>Task name</span>
-              <button className='btn btn-danger btn-sm float-right mx-2'>Delete</button>
-              <button className='btn btn-warning btn-sm float-right'>Edit</button>
-            </li>
+            {tasks.map((task) => {
+              return (
+                <li key={task.id} className='list-group-item'>
+                  <div className='row'>
+                    <div className='col-8'>
+                      <span className='lead'>{task.task}</span>
+                    </div>
+                    <div className='col-4'>
+                      <button className='btn btn-warning btn-sm float-right'>Edit</button>
+                      <button className='btn btn-danger btn-sm float-right mx-2'>Delete</button>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className='col-4'>
