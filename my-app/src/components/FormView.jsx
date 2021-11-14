@@ -3,10 +3,27 @@ import React, { useState } from 'react';
 const FormView = () => {
   const [fruit, setFruit] = useState('');
   const [description, setDescription] = useState('');
+
+  const saveData = (e) => {
+    e.preventDefault();
+    if (!fruit.trim()) {
+      console.log('Fruit it is empty.');
+      return;
+    }
+    if (!description.trim()) {
+      console.log('Description it is empty.');
+      return;
+    }
+    console.log('Procesing data...' + fruit + description);
+    // Clean the inputs when insert data and press add button
+    e.target.reset();
+    setFruit('');
+    setDescription('');
+  };
   return (
     <div>
       <h2>Form</h2>
-      <form>
+      <form onSubmit={saveData}>
         <input
           type='text'
           placeholder='Insert fruit'
