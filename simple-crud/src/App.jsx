@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
+
 function App() {
   const [task, setTask] = useState('');
   const [tasks, setTasks] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [id, setId] = useState('');
 
   const addTask = (e) => {
     e.preventDefault();
@@ -22,6 +25,30 @@ function App() {
     });
     setTasks(arrayWithOutTask);
   };
+
+  const editForm = (task) => {
+    setEditMode(true);
+    setTask(task.task);
+    setId(task.id);
+  };
+
+  const editTask = (e) => {
+    e.preventDefault();
+    if (!task.trim()) {
+      console.log('Empty element');
+      return;
+    }
+    console.log(task);
+
+    const editedArray = tasks.map((item) => (item.id === id ? { id, task } : item));
+    console.log('EDITED ARRAY: ', editedArray);
+
+    setTasks(editedArray);
+    setEditMode(false);
+    setTask('');
+    setId('');
+  };
+
   return (
     <div className='container'>
       <h1 className='text-center mt-4'>Simple CRUD</h1>
@@ -38,7 +65,12 @@ function App() {
                       <span className='lead'>{task.task}</span>
                     </div>
                     <div className='col-4'>
-                      <button className='btn btn-warning btn-sm float-right'>Edit</button>
+                      <button
+                        className='btn btn-warning btn-sm float-right'
+                        onClick={() => editForm(task)}
+                      >
+                        Edit
+                      </button>
                       <button
                         className='btn btn-danger btn-sm float-right mx-2'
                         onClick={() => deleteTask(task.id)}
@@ -53,18 +85,24 @@ function App() {
           </ul>
         </div>
         <div className='col-4'>
-          <h4 className='text-center'> Form</h4>
-          <form onSubmit={addTask}>
+          <h4 className='text-center'>{editMode ? 'Edit mode' : 'Add task'}</h4>
+          <form onSubmit={editMode ? editTask : addTask}>
             <input
               type='text'
               className='from-control mb-2 w-100'
               placeholder='Insert task'
               onChange={(e) => setTask(e.target.value)}
               value={task}
-            ></input>
-            <button className='btn btn-dark w-100' type='submit'>
-              Add
-            </button>
+            />
+            {editMode ? (
+              <button className='btn btn-warning w-100' type='submit'>
+                Edit
+              </button>
+            ) : (
+              <button className='btn btn-dark w-100' type='submit'>
+                Add
+              </button>
+            )}
           </form>
         </div>
       </div>
