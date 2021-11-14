@@ -14,6 +14,14 @@ function App() {
     setTasks([...tasks, { id: nanoid(10), task: task }]);
     setTask('');
   };
+
+  const deleteTask = (id) => {
+    console.log(id);
+    const arrayWithOutTask = tasks.filter((task) => {
+      return task.id !== id;
+    });
+    setTasks(arrayWithOutTask);
+  };
   return (
     <div className='container'>
       <h1 className='text-center mt-4'>Simple CRUD</h1>
@@ -31,7 +39,12 @@ function App() {
                     </div>
                     <div className='col-4'>
                       <button className='btn btn-warning btn-sm float-right'>Edit</button>
-                      <button className='btn btn-danger btn-sm float-right mx-2'>Delete</button>
+                      <button
+                        className='btn btn-danger btn-sm float-right mx-2'
+                        onClick={() => deleteTask(task.id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </li>
