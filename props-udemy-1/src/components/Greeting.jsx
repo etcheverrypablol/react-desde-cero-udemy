@@ -4,8 +4,7 @@ const Greeting = ({ name, age }) => {
   return (
     <div>
       <h2>
-        {' '}
-        Greeting {name} {age}{' '}
+        Greeting {name} {age}
       </h2>
     </div>
   );
