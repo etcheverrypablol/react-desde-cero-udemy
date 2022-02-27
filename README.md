@@ -1,2 +1,1 @@
-Testing the repository
-
+Testing the repository.
